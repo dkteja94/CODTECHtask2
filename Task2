@@ -1,0 +1,62 @@
+#include <stdio.h>
+
+// Function prototypes
+void convertTemperature(double temp, char fromScale, char toScale);
+
+int main() {
+    double temperature;
+    char scale;
+    printf("Enter the temperature: ");
+    scanf("%lf", &temperature);
+    
+    printf("Enter the scale of the temperature (C, F, or K): ");
+    scanf(" %c", &scale);
+    
+    switch(scale) {
+        case 'C':
+        case 'c':
+            convertTemperature(temperature, 'C', 'F');
+            convertTemperature(temperature, 'C', 'K');
+            break;
+        case 'F':
+        case 'f':
+            convertTemperature(temperature, 'F', 'C');
+            convertTemperature(temperature, 'F', 'K');
+            break;
+        case 'K':
+        case 'k':
+            convertTemperature(temperature, 'K', 'C');
+            convertTemperature(temperature, 'K', 'F');
+            break;
+        default:
+            printf("Invalid scale entered.\n");
+            return 1; // Exit the program with an error status
+    }
+    
+    return 0;
+}
+
+// Function to convert temperature between scales
+void convertTemperature(double temp, char fromScale, char toScale) {
+    double convertedTemp;
+    
+    if (fromScale == 'C' && toScale == 'F') {
+        convertedTemp = (temp * 9/5) + 32;
+        printf("%.2f degrees Celsius is %.2f degrees Fahrenheit.\n", temp, convertedTemp);
+    } else if (fromScale == 'C' && toScale == 'K') {
+        convertedTemp = temp + 273.15;
+        printf("%.2f degrees Celsius is %.2f Kelvin.\n", temp, convertedTemp);
+    } else if (fromScale == 'F' && toScale == 'C') {
+        convertedTemp = (temp - 32) * 5/9;
+        printf("%.2f degrees Fahrenheit is %.2f degrees Celsius.\n", temp, convertedTemp);
+    } else if (fromScale == 'F' && toScale == 'K') {
+        convertedTemp = (temp - 32) * 5/9 + 273.15;
+        printf("%.2f degrees Fahrenheit is %.2f Kelvin.\n", temp, convertedTemp);
+    } else if (fromScale == 'K' && toScale == 'C') {
+        convertedTemp = temp - 273.15;
+        printf("%.2f Kelvin is %.2f degrees Celsius.\n", temp, convertedTemp);
+    } else if (fromScale == 'K' && toScale == 'F') {
+        convertedTemp = (temp - 273.15) * 9/5 + 32;
+        printf("%.2f Kelvin is %.2f degrees Fahrenheit.\n", temp, convertedTemp);
+    }
+}
